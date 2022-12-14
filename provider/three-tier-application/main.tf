@@ -16,3 +16,8 @@ module "virtual-network" {
   source = "../../modules/virtualNetwork"
   location = "East US"
 }
+
+module "db" {
+  source = "../../modules/db"
+  location = "East US"
+}
