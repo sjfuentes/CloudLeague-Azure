@@ -1,4 +1,1 @@
-variable "location" {
-  type = string
-  default = "Central US"
-}
+../../provider/three-tier-application/variables.tf
