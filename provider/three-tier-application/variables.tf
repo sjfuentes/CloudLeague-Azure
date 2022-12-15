@@ -1,4 +1,9 @@
 variable "location" {
   type = string
-  default = "Central US"
+  default = "East US"
+}
+
+variable "resourceGroup" {
+  type = string
+  default = "cloudLeagueResourceGroup"
 }

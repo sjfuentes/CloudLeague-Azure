@@ -12,12 +12,19 @@ provider "azurerm" {
   skip_provider_registration = true
 }
 
-module "virtual-network" {
-  source = "../../modules/virtualNetwork"
-  location = "East US"
+resource "azurerm_resource_group" "cloudLeagueResourceGroup" {
+  name = var.resourceGroup
+  location = var.location
 }
 
-module "db" {
-  source = "../../modules/db"
-  location = "East US"
+module "virtual-network" {
+  source = "../../modules/virtualNetwork"
+  location = var.location
 }
+
+# module "db" {
+#   source = "../../modules/db"
+#   location = var.location
+# }
+
+
