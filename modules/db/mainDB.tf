@@ -1,6 +1,6 @@
 resource "azurerm_sql_server" "app_DB_server"{
     name = "app-db-server1256"
-    resource_group_name = "1-55a4b655-playground-sandbox"
+    resource_group_name = var.resourceGroup
     location = var.location
     version = "12.0"
     administrator_login          = "4dm1n157r470r"
@@ -9,7 +9,7 @@ resource "azurerm_sql_server" "app_DB_server"{
 
 resource "azurerm_sql_database" "app-DB" {
   name = "app-db"
-  resource_group_name = "1-80cab9fc-playground-sandbox"
+  resource_group_name = var.resourceGroup
   location = var.location
   server_name = azurerm_sql_server.app_DB_server.name
 }
