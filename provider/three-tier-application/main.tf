@@ -29,7 +29,6 @@ module "virtual-network" {
   source = "../../modules/db"
   location = azurerm_resource_group.cloudLeagueResourceGroup.location
   resourceGroup = azurerm_resource_group.cloudLeagueResourceGroup.name
-  subnet_id = module.db.subnet_id
   depends_on = [
     azurerm_resource_group.cloudLeagueResourceGroup, module.virtual-network
   ]
