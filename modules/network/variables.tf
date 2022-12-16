@@ -1,9 +1,1 @@
-variable "location" {
-  type = string
-  default = "East US"
-}
-
-variable "resourceGroup" {
-  type = string
-  default = "cloudLeagueResourceGroup"
-}
+../../provider/three-tier-application/variables.tf
