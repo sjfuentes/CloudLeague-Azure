@@ -7,3 +7,7 @@ variable "resourceGroup" {
   type = string
   default = "cloudLeagueResourceGroup"
 }
+
+variable "subnet_id" {
+  type = string
+}

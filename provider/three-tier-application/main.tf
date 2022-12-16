@@ -19,13 +19,20 @@ resource "azurerm_resource_group" "cloudLeagueResourceGroup" {
 
 module "virtual-network" {
   source = "../../modules/network"
-  location = var.location
+  location = azurerm_resource_group.cloudLeagueResourceGroup.location
+  resourceGroup = azurerm_resource_group.cloudLeagueResourceGroup.name
   depends_on = [azurerm_resource_group.cloudLeagueResourceGroup]
+  #subnet_id = module.db.subnet_id
 }
 
-# module "db" {
-#   source = "../../modules/db"
-#   location = var.location
-# }
+ module "db" {
+  source = "../../modules/db"
+  location = azurerm_resource_group.cloudLeagueResourceGroup.location
+  resourceGroup = azurerm_resource_group.cloudLeagueResourceGroup.name
+  subnet_id = module.db.subnet_id
+  depends_on = [
+    azurerm_resource_group.cloudLeagueResourceGroup, module.virtual-network
+  ]
+}
 
 
