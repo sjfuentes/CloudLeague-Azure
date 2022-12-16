@@ -18,8 +18,9 @@ resource "azurerm_resource_group" "cloudLeagueResourceGroup" {
 }
 
 module "virtual-network" {
-  source = "../../modules/virtualNetwork"
+  source = "../../modules/network"
   location = var.location
+  depends_on = [azurerm_resource_group.cloudLeagueResourceGroup]
 }
 
 # module "db" {
