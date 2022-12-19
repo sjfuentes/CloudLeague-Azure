@@ -34,4 +34,13 @@ module "virtual-network" {
   ]
 }
 
+module "containers"{
+  source = "../../modules/containers"
+  location = azurerm_resource_group.cloudLeagueResourceGroup.location
+  resourceGroup = azurerm_resource_group.cloudLeagueResourceGroup.name
+  depends_on = [
+    azurerm_resource_group.cloudLeagueResourceGroup
+  ]
+}
+
 
