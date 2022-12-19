@@ -12,6 +12,7 @@ resource "azurerm_sql_database" "app-DB" {
   resource_group_name = var.resourceGroup
   location = var.location
   server_name = azurerm_sql_server.app_DB_server.name
+  depends_on = [azurerm_sql_server.app_DB_server]
 }
 
 resource "azurerm_sql_virtual_network_rule" "sqlvnetrule" {
@@ -19,4 +20,12 @@ resource "azurerm_sql_virtual_network_rule" "sqlvnetrule" {
   resource_group_name = var.resourceGroup
   server_name         = azurerm_sql_server.app_DB_server.name
   subnet_id           = var.subnet-id
+}
+
+resource "azurerm_sql_firewall_rule" "example" {
+  name                = "FirewallRule1"
+  resource_group_name = var.resourceGroup
+  server_name         = azurerm_sql_server.app_DB_server.name
+  start_ip_address    = "157.100.87.167"
+  end_ip_address      = "157.100.87.167"
 }
