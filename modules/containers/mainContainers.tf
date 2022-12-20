@@ -1,5 +1,5 @@
-resource "azurerm_container_registry" "acr" {
-  name                = "CloudLeagueCR"
+resource "azurerm_container_registry" "cloud-league-cr" {
+  name                = "cloudleaguecr"
   resource_group_name = var.resourceGroup
   location            = var.location
   sku                 = "Basic"
@@ -7,7 +7,7 @@ resource "azurerm_container_registry" "acr" {
 }
 
 data "azurerm_container_registry" "example" {
-  name                = azurerm_container_registry.acr.name
+  name                = azurerm_container_registry.cloud-league-cr.name
   resource_group_name = var.resourceGroup
 }
 resource "azurerm_container_group" "containerGroup" {
@@ -19,7 +19,7 @@ resource "azurerm_container_group" "containerGroup" {
 
   container {
     name   = "hello-world"
-    image  = "cloudleaguecr.azurecr.io/nginx-demo"
+    image  = "cloudleaguecr.azurecr.io/samples/nginx"
     cpu    = "0.5"
     memory = "1.5"
 
@@ -37,15 +37,3 @@ resource "azurerm_container_group" "containerGroup" {
   }
 
 }
-/*
-  container {
-    name   = "sidecar"
-    image  = "mcr.microsoft.com/azuredocs/aci-tutorial-sidecar"
-    cpu    = "0.5"
-    memory = "1.5"
-  }
-
-  tags = {
-    environment = "testing"
-  }
-}*/
