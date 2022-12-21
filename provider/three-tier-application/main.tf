@@ -23,7 +23,7 @@ module "virtual-network" {
   resourceGroup = azurerm_resource_group.cloudLeagueResourceGroup.name
   depends_on = [azurerm_resource_group.cloudLeagueResourceGroup]
 }
-/*
+
  module "db" {
   source = "../../modules/db"
   location = azurerm_resource_group.cloudLeagueResourceGroup.location
@@ -32,7 +32,7 @@ module "virtual-network" {
   depends_on = [
     azurerm_resource_group.cloudLeagueResourceGroup, module.virtual-network
   ]
-}*/
+}
 
 module "containers"{
   source = "../../modules/containers"

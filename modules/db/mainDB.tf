@@ -26,6 +26,6 @@ resource "azurerm_sql_firewall_rule" "example" {
   name                = "FirewallRule1"
   resource_group_name = var.resourceGroup
   server_name         = azurerm_sql_server.app_DB_server.name
-  start_ip_address    = "157.100.87.167"
-  end_ip_address      = "157.100.87.167"
+  start_ip_address    = "157.100.135.241"
+  end_ip_address      = "157.100.135.241"
 }
