@@ -1,14 +1,24 @@
 variable "location" {
-  type = string
+  type    = string
   default = "East US"
 }
 
 variable "resourceGroup" {
-  type = string
+  type    = string
   default = "cloudLeagueResourceGroup"
 }
 
 variable "subnet-id" {
-  type = string
+  type    = string
+  default = ""
+}
+
+variable "virtual-network-id" {
+  type    = string
+  default = ""
+}
+
+variable "container-group-ip-address" {
+  type    = string
   default = ""
 }
