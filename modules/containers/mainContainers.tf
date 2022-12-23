@@ -10,6 +10,7 @@ data "azurerm_container_registry" "example" {
   name                = azurerm_container_registry.cloud-league-cr.name
   resource_group_name = var.resourceGroup
 }
+
 resource "azurerm_container_group" "containerGroup" {
   name                = "containerGroup"
   location            = var.location
@@ -19,7 +20,7 @@ resource "azurerm_container_group" "containerGroup" {
 
   container {
     name   = "hello-world"
-    image  = "cloudleaguecr.azurecr.io/samples/nginx"
+    image  = "cloudleaguecr.azurecr.io/node-app"
     cpu    = "0.5"
     memory = "1.5"
 
