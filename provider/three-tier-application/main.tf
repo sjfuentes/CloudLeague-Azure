@@ -9,7 +9,7 @@ terraform {
     resource_group_name  = "thoughtworks-tfstate-rg"
     storage_account_name = "thoughtworkstfax2l4j1z"
     container_name       = "core-tfstate"
-    key                  = "NMtbPjMNXpE2IeIXM6vn7G2rQT0WIghKsYIJjMBnL1VQJ65f3d+PbS1dZP1Eo8RB2eEasA2DoH60+AStK3s9XA=="
+    key                  = var.key
   }
 }
 
