@@ -5,6 +5,12 @@ terraform {
       version = ">= 3.0.0"
     }
   }
+  backend "azurerm" {
+    resource_group_name  = "thoughtworks-tfstate-rg"
+    storage_account_name = "thoughtworkstfax2l4j1z"
+    container_name       = "core-tfstate"
+    key                  = "NMtbPjMNXpE2IeIXM6vn7G2rQT0WIghKsYIJjMBnL1VQJ65f3d+PbS1dZP1Eo8RB2eEasA2DoH60+AStK3s9XA=="
+  }
 }
 
 provider "azurerm" {
@@ -23,7 +29,7 @@ module "virtual-network" {
   resourceGroup = azurerm_resource_group.cloudLeagueResourceGroup.name
   depends_on    = [azurerm_resource_group.cloudLeagueResourceGroup]
 }
-
+/*
 module "db" {
   source        = "../../modules/db"
   location      = azurerm_resource_group.cloudLeagueResourceGroup.location
@@ -52,6 +58,6 @@ module "loadBalancer" {
   depends_on = [
     azurerm_resource_group.cloudLeagueResourceGroup
   ]
-}
+}*/
 
 
