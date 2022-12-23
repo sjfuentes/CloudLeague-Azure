@@ -39,7 +39,7 @@ module "db" {
     azurerm_resource_group.cloudLeagueResourceGroup, module.virtual-network
   ]
 }
-
+*/
 module "containers" {
   source        = "../../modules/containers"
   location      = azurerm_resource_group.cloudLeagueResourceGroup.location
@@ -48,7 +48,7 @@ module "containers" {
     azurerm_resource_group.cloudLeagueResourceGroup
   ]
 }
-
+/*
 module "loadBalancer" {
   source                     = "../../modules/loadBalancer"
   location                   = azurerm_resource_group.cloudLeagueResourceGroup.location
