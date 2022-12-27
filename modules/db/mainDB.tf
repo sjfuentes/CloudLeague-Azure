@@ -3,8 +3,8 @@ resource "azurerm_sql_server" "app_DB_server"{
     resource_group_name = var.resourceGroup
     location = var.location
     version = "12.0"
-    administrator_login          = "4dm1n157r470r"
-    administrator_login_password = "4-v3ry-53cr37-p455w0rd"
+    administrator_login          = var.DB_ADMIN_LOGIN
+    administrator_login_password = var.DB_ADMIN_PASSWORD
 }
 
 resource "azurerm_sql_database" "app-DB" {

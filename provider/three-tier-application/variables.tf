@@ -22,3 +22,14 @@ variable "container-group-ip-address" {
   type    = string
   default = ""
 }
+
+variable "DB_ADMIN_LOGIN" {
+  default = ""
+}
+variable "DB_ADMIN_PASSWORD" {
+  default = ""
+}
+
+variable "key" {
+  default = ""
+}
