@@ -37,7 +37,7 @@ jobs:
       with:
         tf_actions_version: 0.14.8
         tf_actions_subcommand: 'init'
-        tf_actions_working_dir: "./terraform"
+        tf_actions_working_dir: "provider/three-tier-application"
  
          
     - name: 'Terraform Plan'
@@ -53,4 +53,4 @@ jobs:
       with:
         tf_actions_version: 0.14.8
         tf_actions_subcommand: 'apply'
-        tf_actions_working_dir: "./terraform"
+        tf_actions_working_dir: "provider/three-tier-application"
