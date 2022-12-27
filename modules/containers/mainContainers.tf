@@ -17,6 +17,7 @@ resource "azurerm_container_group" "containerGroup" {
   resource_group_name = var.resourceGroup
   ip_address_type     = "Public"
   os_type             = "Linux"
+  dns_name_label = "cloud-league"
 
   container {
     name   = "hello-world"

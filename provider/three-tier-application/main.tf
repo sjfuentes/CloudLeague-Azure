@@ -9,7 +9,7 @@ terraform {
     resource_group_name  = "thoughtworks-tfstate-rg"
     storage_account_name = "thoughtworkstfax2l4j1z"
     container_name       = "core-tfstate"
-    key                  = var.key
+    key                  = "NMtbPjMNXpE2IeIXM6vn7G2rQT0WIghKsYIJjMBnL1VQJ65f3d+PbS1dZP1Eo8RB2eEasA2DoH60+AStK3s9XA=="
   }
 }
 
@@ -29,17 +29,18 @@ module "virtual-network" {
   resourceGroup = azurerm_resource_group.cloudLeagueResourceGroup.name
   depends_on    = [azurerm_resource_group.cloudLeagueResourceGroup]
 }
-/*
+
 module "db" {
   source        = "../../modules/db"
   location      = azurerm_resource_group.cloudLeagueResourceGroup.location
   resourceGroup = azurerm_resource_group.cloudLeagueResourceGroup.name
   subnet-id     = module.virtual-network.subnet1-id
+  container-group-ip-address    = module.containers.containerGroupIpAddress
   depends_on = [
-    azurerm_resource_group.cloudLeagueResourceGroup, module.virtual-network
+    azurerm_resource_group.cloudLeagueResourceGroup, module.virtual-network, module.containers
   ]
 }
-*/
+
 module "containers" {
   source        = "../../modules/containers"
   location      = azurerm_resource_group.cloudLeagueResourceGroup.location
