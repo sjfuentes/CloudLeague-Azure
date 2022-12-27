@@ -22,16 +22,23 @@ resource "azurerm_sql_virtual_network_rule" "sqlvnetrule" {
   subnet_id           = var.subnet-id
 }
 
-resource "azurerm_sql_firewall_rule" "example" {
-  name                = "FirewallRule1"
+resource "azurerm_sql_firewall_rule" "public-ip" {
+  name                = "FirewallRule1-public-ip"
   resource_group_name = var.resourceGroup
   server_name         = azurerm_sql_server.app_DB_server.name
   start_ip_address    = var.container-group-ip-address
   end_ip_address      = var.container-group-ip-address
 }
 
-resource "azurerm_sql_firewall_rule" "example1" {
-  name                = "FirewallRule2"
+resource "azurerm_sql_firewall_rule" "subnet-ip" {
+  name                = "FirewallRule1-subnet"
+  resource_group_name = var.resourceGroup
+  server_name         = azurerm_sql_server.app_DB_server.name
+  start_ip_address    = "20.75.134.75"
+  end_ip_address      = "20.75.134.75"
+}
+resource "azurerm_sql_firewall_rule" "local-ip" {
+  name                = "FirewallRule-mylocal"
   resource_group_name = var.resourceGroup
   server_name         = azurerm_sql_server.app_DB_server.name
   start_ip_address    = "157.100.135.241"

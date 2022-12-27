@@ -6,7 +6,7 @@ resource "azurerm_container_registry" "cloud-league-cr" {
   admin_enabled       = true
 }
 
-data "azurerm_container_registry" "example" {
+data "azurerm_container_registry" "data-cr" {
   name                = azurerm_container_registry.cloud-league-cr.name
   resource_group_name = var.resourceGroup
 }
@@ -20,22 +20,22 @@ resource "azurerm_container_group" "containerGroup" {
   dns_name_label = "cloud-league"
 
   container {
-    name   = "hello-world"
+    name   = "cloud-league-app"
     image  = "cloudleaguecr.azurecr.io/node-app"
     cpu    = "0.5"
     memory = "1.5"
 
 
     ports {
-      port     = 80
+      port     = 8080
       protocol = "TCP"
     }
   }
 
   image_registry_credential {
-    server = data.azurerm_container_registry.example.login_server
-    username = data.azurerm_container_registry.example.admin_username
-    password = data.azurerm_container_registry.example.admin_password
+    server = data.azurerm_container_registry.data-cr.login_server
+    username = data.azurerm_container_registry.data-cr.admin_username
+    password = data.azurerm_container_registry.data-cr.admin_password
   }
 
 }

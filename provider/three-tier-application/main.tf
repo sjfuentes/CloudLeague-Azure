@@ -49,16 +49,5 @@ module "containers" {
     azurerm_resource_group.cloudLeagueResourceGroup
   ]
 }
-/*
-module "loadBalancer" {
-  source                     = "../../modules/loadBalancer"
-  location                   = azurerm_resource_group.cloudLeagueResourceGroup.location
-  resourceGroup              = azurerm_resource_group.cloudLeagueResourceGroup.name
-  virtual-network-id         = module.virtual-network.virtualNetworkId
-  container-group-ip-address = module.containers.containerGroupIpAddress
-  depends_on = [
-    azurerm_resource_group.cloudLeagueResourceGroup
-  ]
-}*/
 
 
