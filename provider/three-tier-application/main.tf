@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = ">= 3.0.0"
     }
+    azapi = {
+      source = "Azure/azapi"
+      version = "~>1.0.0"
+    }
   }
   backend "azurerm" {
     resource_group_name  = "thoughtworks-tfstate-rg"
@@ -18,6 +22,8 @@ provider "azurerm" {
   skip_provider_registration = true
 }
 
+provider "azapi" {}
+
 resource "azurerm_resource_group" "cloudLeagueResourceGroup" {
   name     = var.resourceGroup
   location = var.location
@@ -30,14 +36,23 @@ module "virtual-network" {
   depends_on    = [azurerm_resource_group.cloudLeagueResourceGroup]
 }
 
-module "db" {
-  source                     = "../../modules/db"
-  location                   = azurerm_resource_group.cloudLeagueResourceGroup.location
-  resourceGroup              = azurerm_resource_group.cloudLeagueResourceGroup.name
-  subnet-id                  = module.virtual-network.subnet1-id
-  container-group-ip-address = module.containers.containerGroupIpAddress
+# module "db" {
+#   source                     = "../../modules/db"
+#   location                   = azurerm_resource_group.cloudLeagueResourceGroup.location
+#   resourceGroup              = azurerm_resource_group.cloudLeagueResourceGroup.name
+#   subnet-id                  = module.virtual-network.subnet1-id
+#   container-group-ip-address = module.containers.containerGroupIpAddress
+#   depends_on = [
+#     azurerm_resource_group.cloudLeagueResourceGroup, module.virtual-network, module.containers
+#   ]
+# }
+
+module "containerRegistry"{
+  source        = "../../modules/containerRegistry"
+  location      = azurerm_resource_group.cloudLeagueResourceGroup.location
+  resourceGroup = azurerm_resource_group.cloudLeagueResourceGroup.name
   depends_on = [
-    azurerm_resource_group.cloudLeagueResourceGroup, module.virtual-network, module.containers
+    azurerm_resource_group.cloudLeagueResourceGroup
   ]
 }
 
@@ -46,7 +61,8 @@ module "containers" {
   location      = azurerm_resource_group.cloudLeagueResourceGroup.location
   resourceGroup = azurerm_resource_group.cloudLeagueResourceGroup.name
   depends_on = [
-    azurerm_resource_group.cloudLeagueResourceGroup
+    azurerm_resource_group.cloudLeagueResourceGroup,
+    module.containerRegistry
   ]
 }
 
