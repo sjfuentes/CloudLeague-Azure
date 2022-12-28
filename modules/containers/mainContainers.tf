@@ -12,7 +12,7 @@ data "azurerm_container_registry" "data-cr" {
 }
 
 resource "azurerm_container_group" "containerGroup" {
-  name                = "containerGroup"
+  name                = "cl-container-group"
   location            = var.location
   resource_group_name = var.resourceGroup
   ip_address_type     = "Public"
@@ -24,6 +24,13 @@ resource "azurerm_container_group" "containerGroup" {
     image  = "cloudleaguecr.azurecr.io/node-app"
     cpu    = "0.5"
     memory = "1.5"
+
+    environment_variables = {
+      "DB_user" = "4dm1n157r470r"
+      "DB_password" = "4-v3ry-53cr37-p455w0rd"
+      "DB_server" = "app-db-server1256.database.windows.net"
+      "DB_name" = "app-db"    
+    }
 
 
     ports {

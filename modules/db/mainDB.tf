@@ -3,8 +3,8 @@ resource "azurerm_sql_server" "app_DB_server"{
     resource_group_name = var.resourceGroup
     location = var.location
     version = "12.0"
-    administrator_login          = var.DB_ADMIN_LOGIN
-    administrator_login_password = var.DB_ADMIN_PASSWORD
+    administrator_login          = "4dm1n157r470r"
+    administrator_login_password = "4-v3ry-53cr37-p455w0rd"
 }
 
 resource "azurerm_sql_database" "app-DB" {
@@ -34,8 +34,8 @@ resource "azurerm_sql_firewall_rule" "subnet-ip" {
   name                = "FirewallRule1-subnet"
   resource_group_name = var.resourceGroup
   server_name         = azurerm_sql_server.app_DB_server.name
-  start_ip_address    = "20.75.134.75"
-  end_ip_address      = "20.75.134.75"
+  start_ip_address    = "20.241.189.228"
+  end_ip_address      = "20.241.189.228"
 }
 resource "azurerm_sql_firewall_rule" "local-ip" {
   name                = "FirewallRule-mylocal"
