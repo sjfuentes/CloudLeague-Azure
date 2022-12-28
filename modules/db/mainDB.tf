@@ -1,18 +1,18 @@
-resource "azurerm_sql_server" "app_DB_server"{
-    name = "app-db-server1256"
-    resource_group_name = var.resourceGroup
-    location = var.location
-    version = "12.0"
-    administrator_login          = "4dm1n157r470r"
-    administrator_login_password = "4-v3ry-53cr37-p455w0rd"
+resource "azurerm_sql_server" "app_DB_server" {
+  name                         = "app-db-server1256"
+  resource_group_name          = var.resourceGroup
+  location                     = var.location
+  version                      = "12.0"
+  administrator_login          = "4dm1n157r470r"
+  administrator_login_password = "4-v3ry-53cr37-p455w0rd"
 }
 
 resource "azurerm_sql_database" "app-DB" {
-  name = "app-db"
+  name                = "app-db"
   resource_group_name = var.resourceGroup
-  location = var.location
-  server_name = azurerm_sql_server.app_DB_server.name
-  depends_on = [azurerm_sql_server.app_DB_server]
+  location            = var.location
+  server_name         = azurerm_sql_server.app_DB_server.name
+  depends_on          = [azurerm_sql_server.app_DB_server]
 }
 
 resource "azurerm_sql_virtual_network_rule" "sqlvnetrule" {

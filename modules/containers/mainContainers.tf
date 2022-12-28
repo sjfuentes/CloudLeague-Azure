@@ -17,7 +17,7 @@ resource "azurerm_container_group" "containerGroup" {
   resource_group_name = var.resourceGroup
   ip_address_type     = "Public"
   os_type             = "Linux"
-  dns_name_label = "cloud-league"
+  dns_name_label      = "cloud-league"
 
   container {
     name   = "cloud-league-app"
@@ -26,10 +26,10 @@ resource "azurerm_container_group" "containerGroup" {
     memory = "1.5"
 
     environment_variables = {
-      "DB_user" = "4dm1n157r470r"
+      "DB_user"     = "4dm1n157r470r"
       "DB_password" = "4-v3ry-53cr37-p455w0rd"
-      "DB_server" = "app-db-server1256.database.windows.net"
-      "DB_name" = "app-db"    
+      "DB_server"   = "app-db-server1256.database.windows.net"
+      "DB_name"     = "app-db"
     }
 
 
@@ -40,7 +40,7 @@ resource "azurerm_container_group" "containerGroup" {
   }
 
   image_registry_credential {
-    server = data.azurerm_container_registry.data-cr.login_server
+    server   = data.azurerm_container_registry.data-cr.login_server
     username = data.azurerm_container_registry.data-cr.admin_username
     password = data.azurerm_container_registry.data-cr.admin_password
   }
