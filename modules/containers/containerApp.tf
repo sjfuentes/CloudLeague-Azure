@@ -1,6 +1,11 @@
 data "azurerm_resource_group" "example" {
   name = var.resourceGroup
 }
+
+data "azurerm_container_registry" "example" {
+  name                = "cloudLeagueCR"
+  resource_group_name = var.resourceGroup
+}
 resource "azurerm_log_analytics_workspace" "law" {
   name                = "law-aca-terraform"
   resource_group_name = var.resourceGroup
@@ -9,6 +14,21 @@ resource "azurerm_log_analytics_workspace" "law" {
   sku               = "PerGB2018"
   retention_in_days = 90
 
+}
+
+resource "azurerm_user_assigned_identity" "containerapp" {
+  location            = data.azurerm_resource_group.example.location
+  name                = "containerappmi"
+  resource_group_name = var.resourceGroup
+}
+ 
+resource "azurerm_role_assignment" "containerapp" {
+  scope                = data.azurerm_resource_group.example.id
+  role_definition_name = "acrpull"
+  principal_id         = azurerm_user_assigned_identity.containerapp.principal_id
+  depends_on = [
+    azurerm_user_assigned_identity.containerapp
+  ]
 }
 
 resource "azapi_resource" "aca_env" {
@@ -37,6 +57,13 @@ resource "azapi_resource" "aca" {
   parent_id = data.azurerm_resource_group.example.id
   location  = data.azurerm_resource_group.example.location
   name      = each.value.name
+
+  identity {
+    type         = "SystemAssigned, UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.containerapp.id]
+  }
+
+
   body = jsonencode({
     properties : {
       managedEnvironmentId = azapi_resource.aca_env.id
@@ -44,7 +71,13 @@ resource "azapi_resource" "aca" {
         ingress = {
           external   = each.value.ingress_enabled
           targetPort = each.value.ingress_enabled ? each.value.containerPort : null
-        }
+        },
+         registries = [
+          {
+            server = data.azurerm_container_registry.example.login_server,
+            identity = azurerm_user_assigned_identity.containerapp.id
+          }
+        ]
       }
       template = {
         containers = [
