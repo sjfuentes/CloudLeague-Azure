@@ -53,8 +53,8 @@ variable "container_apps" {
     tag             = "latest"
     containerPort   = 8080
     ingress_enabled = true
-    min_replicas    = 1
-    max_replicas    = 2
+    min_replicas    = 3
+    max_replicas    = 5
     cpu_requests    = 0.5
     mem_requests    = "1.0Gi"
     }]

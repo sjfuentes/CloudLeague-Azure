@@ -6,6 +6,18 @@ data "azurerm_container_registry" "example" {
   name                = "cloudLeagueCR"
   resource_group_name = var.resourceGroup
 }
+
+data "azurerm_sql_server" "sql-server" {
+  name                = "app-db-server1256"
+  resource_group_name = var.resourceGroup
+}
+
+data "azurerm_sql_database" "sql-db" {
+  name                = "app-db"
+  server_name         = "app-db-server1256"
+  resource_group_name = var.resourceGroup
+}
+
 resource "azurerm_log_analytics_workspace" "law" {
   name                = "law-aca-terraform"
   resource_group_name = var.resourceGroup
@@ -77,7 +89,25 @@ resource "azapi_resource" "aca" {
             server = data.azurerm_container_registry.example.login_server,
             identity = azurerm_user_assigned_identity.containerapp.id
           }
-        ]
+        ],
+        secrets= [
+        {
+                name= "dbuser"
+                value= data.azurerm_sql_server.sql-server.administrator_login
+              },
+              {
+                name= "dbpassword"
+                value= "4-v3ry-53cr37-p455w0rd"
+              },
+              {
+                name= "dbserver"
+                value= data.azurerm_sql_server.sql-server.fqdn
+              },
+              {
+                name= "dbname"
+                value= data.azurerm_sql_database.sql-db.name
+              }
+      ]
       }
       template = {
         containers = [
@@ -87,7 +117,29 @@ resource "azapi_resource" "aca" {
             resources = {
               cpu    = each.value.cpu_requests
               memory = each.value.mem_requests
-            }
+            },
+            env= [
+              {
+                name= "DB_user"
+                secretRef= "dbuser"
+                # value= data.azurerm_sql_server.sql-server.administrator_login
+              },
+              {
+                name= "DB_password"
+                secretRef= "dbpassword"
+                # value= "4-v3ry-53cr37-p455w0rd"
+              },
+              {
+                name= "DB_server"
+                secretRef= "dbserver"
+                # value= data.azurerm_sql_server.sql-server.fqdn
+              },
+              {
+                name= "DB_name"
+                secretRef= "dbname"
+                # value= data.azurerm_sql_database.sql-db.name
+              }
+            ]
           }
         ]
         scale = {
