@@ -1,10 +1,20 @@
+data "azurerm_key_vault_secret" "user" {
+  name         = "db-user"
+  key_vault_id = "/subscriptions/42675650-b369-4b31-8667-dc009a8da13f/resourceGroups/cloudLeagueResourceGroup/providers/Microsoft.KeyVault/vaults/key123823"
+}
+
+data "azurerm_key_vault_secret" "password" {
+  name         = "db-password"
+  key_vault_id = "/subscriptions/42675650-b369-4b31-8667-dc009a8da13f/resourceGroups/cloudLeagueResourceGroup/providers/Microsoft.KeyVault/vaults/key123823"
+}
+
 resource "azurerm_sql_server" "app_DB_server" {
   name                         = "app-db-server1256"
   resource_group_name          = var.resourceGroup
   location                     = var.location
   version                      = "12.0"
-  administrator_login          = "4dm1n157r470r"
-  administrator_login_password = "4-v3ry-53cr37-p455w0rd"
+  administrator_login          = data.azurerm_key_vault_secret.user.value
+  administrator_login_password = data.azurerm_key_vault_secret.password.value
 }
 
 resource "azurerm_sql_database" "app-DB" {

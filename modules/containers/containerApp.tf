@@ -18,6 +18,16 @@ data "azurerm_sql_database" "sql-db" {
   resource_group_name = var.resourceGroup
 }
 
+data "azurerm_key_vault_secret" "user" {
+  name         = "db-user"
+  key_vault_id = "/subscriptions/42675650-b369-4b31-8667-dc009a8da13f/resourceGroups/cloudLeagueResourceGroup/providers/Microsoft.KeyVault/vaults/key123823"
+}
+
+data "azurerm_key_vault_secret" "password" {
+  name         = "db-password"
+  key_vault_id = "/subscriptions/42675650-b369-4b31-8667-dc009a8da13f/resourceGroups/cloudLeagueResourceGroup/providers/Microsoft.KeyVault/vaults/key123823"
+}
+
 resource "azurerm_log_analytics_workspace" "law" {
   name                = "law-aca-terraform"
   resource_group_name = var.resourceGroup
@@ -93,11 +103,11 @@ resource "azapi_resource" "aca" {
         secrets= [
         {
                 name= "dbuser"
-                value= data.azurerm_sql_server.sql-server.administrator_login
+                value= data.azurerm_key_vault_secret.user.value
               },
               {
                 name= "dbpassword"
-                value= "4-v3ry-53cr37-p455w0rd"
+                value= data.azurerm_key_vault_secret.password.value
               },
               {
                 name= "dbserver"

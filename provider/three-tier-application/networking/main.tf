@@ -19,12 +19,4 @@ module "containerRegistry"{
   ]
 }
 
-data "azurerm_key_vault_secret" "example" {
-  name         = "secret"
-  key_vault_id = "/subscriptions/42675650-b369-4b31-8667-dc009a8da13f/resourceGroups/cloudLeagueResourceGroup/providers/Microsoft.KeyVault/vaults/key123823"
-}
 
-output "secret_value" {
-  value     = data.azurerm_key_vault_secret.example.value
-  sensitive = true
-}
