@@ -20,12 +20,12 @@ data "azurerm_sql_database" "sql-db" {
 
 data "azurerm_key_vault_secret" "user" {
   name         = "db-user"
-  key_vault_id = "/subscriptions/42675650-b369-4b31-8667-dc009a8da13f/resourceGroups/cloudLeagueResourceGroup/providers/Microsoft.KeyVault/vaults/key123823"
+  key_vault_id = "/subscriptions/42675650-b369-4b31-8667-dc009a8da13f/resourceGroups/cloudLeagueResourceGroup/providers/Microsoft.KeyVault/vaults/cloud-league"
 }
 
 data "azurerm_key_vault_secret" "password" {
   name         = "db-password"
-  key_vault_id = "/subscriptions/42675650-b369-4b31-8667-dc009a8da13f/resourceGroups/cloudLeagueResourceGroup/providers/Microsoft.KeyVault/vaults/key123823"
+  key_vault_id = "/subscriptions/42675650-b369-4b31-8667-dc009a8da13f/resourceGroups/cloudLeagueResourceGroup/providers/Microsoft.KeyVault/vaults/cloud-league"
 }
 
 resource "azurerm_log_analytics_workspace" "law" {
