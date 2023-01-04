@@ -1,1 +1,0 @@
-../../provider/three-tier-application/variables.tf
