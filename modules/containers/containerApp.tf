@@ -162,4 +162,3 @@ resource "azapi_resource" "aca" {
 }
 
 
-#hola soy yo prueba 
